@@ -105,14 +105,16 @@ Access imgcache.js and its original methods in your components via promise to ma
 
 Angular-imgcache.js comes with directive, which first looks into cache for an image. If not present, it downloads image, then stores in cache and uses it.
 
-We can set src of an image with `ic-src` attribute.
+We can set src of an image with `ng-src` or `src` attribute.
 
 ```html
-<img img-cache ic-src="{{imgUrl}}" />
+<img img-cache ng-src="{{imgUrl}}" />
+
+<img img-cache src="{{imgUrl}}" />
 ```
 
-Or set elements `background-image` with `ic-bg` attribute.
+Or set elements `background-image` with `bg-img-src` attribute.
 
 ```html
-<div img-cache ic-bg="{{imgUrl}}" ></div>
+<div img-cache bg-img-src="{{imgUrl}}" ></div>
 ```
