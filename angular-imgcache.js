@@ -43,8 +43,9 @@ angular.module('ImgCache', [])
       return {
           restrict: 'A',
           scope: {
-              icBg: '@',
-              icSrc: '@'
+              bgImgSrc: '@',
+              ngSrc: '@',
+              src: '@'
           },
           link: function(scope, el, attrs) {
 
@@ -109,13 +110,18 @@ angular.module('ImgCache', [])
                   });
               };
 
-              attrs.$observe('icSrc', function(src) {
+              attrs.$observe('ngSrc', function(src) {
+
+                  loadImg('src', el, src);
+
+              });
+              attrs.$observe('src', function(src) {
 
                   loadImg('src', el, src);
 
               });
 
-              attrs.$observe('icBg', function(src) {
+              attrs.$observe('bgImgSrc', function(src) {
 
                   loadImg('bg', el, src);
 
