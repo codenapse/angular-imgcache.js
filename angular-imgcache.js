@@ -3,7 +3,7 @@
 angular.module('ImgCache', [])
 
     // The number of attempts to download and cache a file before falling back on linking directly
-    .constant('NUMBER_OF_CACHE_ATTEMPTS', 2)
+    .constant('NUMBER_OF_CACHE_ATTEMPTS', 1)
 
 
     .provider('ImgCache', function() {
@@ -74,7 +74,7 @@ angular.module('ImgCache', [])
                 var setImg = function(type, el, src) {
 
                     ImgCache.getCachedFileURL(src, function(src, dest) {
-                        $log.log("Fetching cached image {src} for use  as a {type}", {src: src, type: type});
+                        $log.log("Fetching cached image `"+ src +"` for use as a "+ type);
                         if(type === 'bg') {
                             el.css({'background-image': 'url(' + dest + ')' });
                         } else {
@@ -92,18 +92,15 @@ angular.module('ImgCache', [])
                  */
                 var attemptToCacheFile = function(type, src, attemptNum) {
                     ImgCache.cacheFile(src, function() {
-                        $log.log("Successfully cached image {src} on attempt {attempt}", {src: src,
-                            attempt: attemptNum});
+                        $log.log("Successfully cached image `"+ src +"` on attempt "+ attemptNum);
                         setImg(type, el, src);
                     }, function(error) {
-                        $log.warn("Failed to cache image {src} on attempt {attempt}", {src: src,
-                            attempt: attemptNum});
+                        $log.warn("Failed to cache image `"+ src +"` on attempt "+ attemptNum);
                         // Attempt to cache the file once more
                         if (attemptNum <= NUMBER_OF_CACHE_ATTEMPTS) {
                             attemptToCacheFile(type, src, ++attemptNum);
                         } else {
-                            $log.warn("Giving up trying to cache image {src} after attempt {attempt}",
-                                {src: src, attempt: attemptNum});
+                            $log.warn("Giving up trying to cache image `"+ src +"` on attempt "+ attemptNum);
                             // We failed downloading the image to the cache, so just attempt
                             // to show it directly in the tag
                             if(type === 'bg') {
