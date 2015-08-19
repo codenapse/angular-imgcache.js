@@ -134,11 +134,6 @@ angular.module('ImgCache', [])
                     loadImg('src', el, src);
 
                 });
-                attrs.$observe('src', function(src) {
-
-                    loadImg('src', el, src);
-
-                });
 
                 attrs.$observe('bgImgSrc', function(src) {
 
